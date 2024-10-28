@@ -2,11 +2,16 @@ from pgl import *
 
 #1a
 def create_histogram_array(data:list[int])->list[int]:
-    pass
+    max_val = max(data) + 1
+    histogram = [0] * max_val
+    for num in data:
+        histogram[num] += 1
+    return histogram
 
 #1b
 def print_histogram(hist:list[int]) -> None:
-    pass
+    for i in range(len(hist)):
+        print(f"{i}: {'*' * hist[i]}")
 
 #1c
 def graph_histogram(hist:list[int], width:int, height:int) -> None:
@@ -16,6 +21,15 @@ def graph_histogram(hist:list[int], width:int, height:int) -> None:
         rect.set_filled(True)
         rect.set_color(color)
         gw.add(rect)
+    
+    max_val = max(hist)
+    column_width = width // len(hist)
+    unit_height = height // (max_val + 1)
+    
+    gw = GWindow(width, height)
+    for i in range(len(hist)):
+        column_height = hist[i] * unit_height
+        my_rect(i * column_width, height - column_height, column_width, column_height, "red")
 
     pass
 
